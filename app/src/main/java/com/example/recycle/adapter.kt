@@ -33,21 +33,13 @@ class FoodAdapter(private var dataList: List<DataModel>,val context: Context): R
         val inflater = LayoutInflater.from(p0.context)
         val rec = inflater.inflate(R.layout.food,p0,false)
 
-        rec.menu_image.setOnClickListener{
-            val intent = Intent(context,detail::class.java)
-            intent.putExtra("name",dataList[p1].name)
-            intent.putExtra("description",dataList[p1].description)
-            intent.putExtra("image_large",dataList[p1].image_large)
-            intent.putExtra("price",dataList[p1].price)
-            context.startActivity(intent)
-        }
-
         rec.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 Toast.makeText(context,"Added "+dataList[p1].name,Toast.LENGTH_SHORT).show()
 
                     val json = JSONObject()
                     json.put("name",dataList[p1].name)
+                    json.put("price",dataList[p1].price)
                     var requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"),json.toString())
                     val call: Call<List<OrderModel>> = ApiClient.getClient.postQueue(requestBody)
                     call.enqueue(object : Callback<List<OrderModel>> {
@@ -81,6 +73,43 @@ class FoodAdapter(private var dataList: List<DataModel>,val context: Context): R
             .centerCrop()
             .into(p0.itemView.menu_image);
         //p0.itemView.menu_image.setImageResource(R.drawable.d)
+
+        p0.itemView.setOnClickListener{
+            val intent = Intent(context,detail::class.java)
+            intent.putExtra("name",dataList[p1].name)
+            intent.putExtra("description",dataList[p1].description)
+            intent.putExtra("image_large",dataList[p1].image_large)
+            intent.putExtra("price",dataList[p1].price)
+            context.startActivity(intent)
+        }
+        p0.itemView.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                Toast.makeText(context,"Added "+dataList[p1].name,Toast.LENGTH_SHORT).show()
+
+//                val json = JSONObject()
+//                json.put("name",dataList[p1].name)
+//                json.put("price",dataList[p1].price)
+//                var requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"),json.toString())
+//                val call: Call<List<OrderModel>> = ApiClient.getClient.postQueue(requestBody)
+//                call.enqueue(object : Callback<List<OrderModel>> {
+//
+//                    override fun onResponse(call: Call<List<OrderModel>>?, response: Response<List<OrderModel>>?) {
+//                        //progerssProgressDialog.dismiss()
+//                        Log.d("tagg",response.toString())
+//                    }
+//
+//                    override fun onFailure(call: Call<List<OrderModel>>?, t: Throwable?) {
+//                        //progerssProgressDialog.dismiss()
+//                        Log.d("tag","er")
+//                        Log.d("tag",t.toString())
+//                    }
+//                })
+
+            } else {
+                Toast.makeText(context,"Removed "+dataList[p1].name,Toast.LENGTH_SHORT).show()
+            }
+
+        }
     }
 
     override fun getItemCount(): Int {

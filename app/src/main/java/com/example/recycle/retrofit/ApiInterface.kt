@@ -12,13 +12,13 @@ interface ApiInterface{
     @GET("drinks")
     fun getDrinks(): Call<List<DataModel>>
 
-    @GET("meal")
+    @GET("meals")
     fun getFoods(): Call<List<DataModel>>
 
-    @GET("breakfast")
+    @GET("breakfasts")
     fun getBreakFast(): Call<List<DataModel>>
 
-    @GET("lunch")
+    @GET("lunches")
     fun getLunch(): Call<List<DataModel>>
 
     @GET("dinner")
@@ -27,7 +27,7 @@ interface ApiInterface{
     @GET("ingredients")
     fun getIngredients(): Call<List<ingredients>>
 
-    @POST("queue")
+    @POST("queues")
     fun postQueue(@Body request: RequestBody): Call<List<OrderModel>>
 
     @GET("orders")
