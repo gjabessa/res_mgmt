@@ -1,16 +1,16 @@
 package com.example.recycle
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
-import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
 
-class pagerAdapter(fragmentManager: FragmentManager, var category:List<Category>,var exceptional:Category):FragmentStatePagerAdapter(fragmentManager){
+class pagerAdapter(fragmentManager: androidx.fragment.app.FragmentManager, var category:List<Category>, var exceptional:Category):
+    androidx.fragment.app.FragmentStatePagerAdapter(fragmentManager){
     override fun getCount(): Int {
         return category.size
     }
 
-    override fun getItem(p0: Int): Fragment {
+    override fun getItem(p0: Int): androidx.fragment.app.Fragment {
         val hold = 100;
         if(exceptional.Title == "" ) {
             val hold = p0

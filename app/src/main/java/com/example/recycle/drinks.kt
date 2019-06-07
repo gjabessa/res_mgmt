@@ -2,17 +2,14 @@ package com.example.recycle
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.example.recycle.model.DataModel
-import com.example.recycle.model.DrinksModel
 import kotlinx.android.synthetic.main.food.view.*
 
-class DrinksAdapter(private var dataList: List<DataModel>,val context: Context): RecyclerView.Adapter<DrinksAdapter.ViewHolder>(){
+class DrinksAdapter(private var dataList: List<DataModel>,val context: Context): androidx.recyclerview.widget.RecyclerView.Adapter<DrinksAdapter.ViewHolder>(){
     var foodList = listOf(
         Food("Coffee",R.drawable.d),
         Food("Coffee",R.drawable.d),
@@ -47,5 +44,5 @@ class DrinksAdapter(private var dataList: List<DataModel>,val context: Context):
         return dataList.size
     }
 
-    class ViewHolder(viewItem: View): RecyclerView.ViewHolder(viewItem)
+    class ViewHolder(viewItem: View): androidx.recyclerview.widget.RecyclerView.ViewHolder(viewItem)
 }

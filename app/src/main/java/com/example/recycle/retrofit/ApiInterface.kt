@@ -1,6 +1,5 @@
 package com.example.recycle.retrofit
 import com.example.recycle.model.DataModel
-import com.example.recycle.model.DrinksModel
 import com.example.recycle.model.OrderModel
 import com.example.recycle.model.ingredients
 import okhttp3.RequestBody

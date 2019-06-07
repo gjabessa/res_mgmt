@@ -1,32 +1,24 @@
 package com.example.recycle
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.recycle.model.DataModel
-import com.example.recycle.model.DrinksModel
 import com.example.recycle.retrofit.ApiClient
 import kotlinx.android.synthetic.main.fragment_base.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.zip.Inflater
 
 
+class baseFragment : androidx.fragment.app.Fragment() {
 
-class baseFragment : Fragment() {
-
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
     var dataList = ArrayList<DataModel>()
-    var drinksList = ArrayList<DrinksModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_base,container,false)
@@ -35,7 +27,7 @@ class baseFragment : Fragment() {
 
         val category = arguments?.getSerializable("category") as Category
 
-        recyclerView.layoutManager = GridLayoutManager(activity,2)
+        recyclerView.layoutManager = androidx.recyclerview.widget.GridLayoutManager(activity, 2)
         Log.d("trtttttt",category.Title)
 //        if(category.Title == "BreakFast"){
 //            recyclerView.adapter = BreakfastAdapter(dataList, activity)

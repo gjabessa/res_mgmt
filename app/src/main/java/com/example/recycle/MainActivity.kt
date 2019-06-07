@@ -1,19 +1,19 @@
 package com.example.recycle
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.view.ViewPager
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.lifecycle.ViewModelProviders
 import com.example.recycle.model.DataModel
 import com.example.recycle.model.OrderModel
 import com.example.recycle.retrofit.ApiClient
+import com.example.recycle.viewmodel.QueueView
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,14 +24,19 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         Category("Drinks")
     )
     var dataList = ArrayList<DataModel>()
-    lateinit var recyclerView: RecyclerView
-    lateinit var viewpager: ViewPager
+    lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
+    lateinit var viewpager: androidx.viewpager.widget.ViewPager
     lateinit var pagerAdapter: pagerAdapter
     lateinit var button: Button
+    lateinit var queueView: QueueView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         spinner2.setOnItemSelectedListener(this)
+
+        queueView = ViewModelProviders.of(this).get(QueueView::class.java)
+        //val model = ViewModelProviders.of(this).get(QueueView::class.java)
 
         var aa = ArrayAdapter.createFromResource(this, R.array.type_array,android.R.layout.simple_spinner_item).also{
             adapter -> adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

@@ -9,6 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiClient{
     //var BASE_URL:String = "https://resmenapp.herokuapp.com/api/";
     var BASE_URL:String = "http://192.168.137.1:3000/";
+
     val getClient: ApiInterface
         get() {
             val gson = GsonBuilder()

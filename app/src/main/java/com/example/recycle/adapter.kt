@@ -2,7 +2,7 @@ package com.example.recycle
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +21,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FoodAdapter(private var dataList: List<DataModel>,val context: Context): RecyclerView.Adapter<FoodAdapter.ViewHolder>(){
+class FoodAdapter(private var dataList: List<DataModel>,val context: Context): androidx.recyclerview.widget.RecyclerView.Adapter<FoodAdapter.ViewHolder>(){
     var foodList = listOf(
         Food("Coffee",R.drawable.d),
         Food("Coffee",R.drawable.d),
@@ -116,5 +116,5 @@ class FoodAdapter(private var dataList: List<DataModel>,val context: Context): R
         return dataList.size
     }
 
-    class ViewHolder(viewItem: View): RecyclerView.ViewHolder(viewItem)
+    class ViewHolder(viewItem: View): androidx.recyclerview.widget.RecyclerView.ViewHolder(viewItem)
 }
