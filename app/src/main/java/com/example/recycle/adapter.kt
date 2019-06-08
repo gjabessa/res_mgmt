@@ -8,10 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.example.recycle.model.DataModel
 import com.example.recycle.model.OrderModel
+import com.example.recycle.model.Queue
 import com.example.recycle.retrofit.ApiClient
+import com.example.recycle.viewmodel.QueueView
 import kotlinx.android.synthetic.main.activity_detail.view.*
 import kotlinx.android.synthetic.main.food.view.*
 import okhttp3.MediaType
@@ -29,38 +34,40 @@ class FoodAdapter(private var dataList: List<DataModel>,val context: Context): a
         Food("Coffee",R.drawable.d),
         Food("Coffee",R.drawable.d)
     )
+    var count = 0;
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): FoodAdapter.ViewHolder {
         val inflater = LayoutInflater.from(p0.context)
         val rec = inflater.inflate(R.layout.food,p0,false)
 
-        rec.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                Toast.makeText(context,"Added "+dataList[p1].name,Toast.LENGTH_SHORT).show()
 
-                    val json = JSONObject()
-                    json.put("name",dataList[p1].name)
-                    json.put("price",dataList[p1].price)
-                    var requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"),json.toString())
-                    val call: Call<List<OrderModel>> = ApiClient.getClient.postQueue(requestBody)
-                    call.enqueue(object : Callback<List<OrderModel>> {
-
-                        override fun onResponse(call: Call<List<OrderModel>>?, response: Response<List<OrderModel>>?) {
-                            //progerssProgressDialog.dismiss()
-                            Log.d("tagg",response.toString())
-                        }
-
-                        override fun onFailure(call: Call<List<OrderModel>>?, t: Throwable?) {
-                            //progerssProgressDialog.dismiss()
-                            Log.d("tag","er")
-                            Log.d("tag",t.toString())
-                        }
-                    })
-
-            } else {
-                Toast.makeText(context,"Removed "+dataList[p1].name,Toast.LENGTH_SHORT).show()
-            }
-
-        }
+//        rec.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+//            if (isChecked) {
+//                Toast.makeText(context,"Added "+dataList[p1].name,Toast.LENGTH_SHORT).show()
+//
+//                    val json = JSONObject()
+//                    json.put("name",dataList[p1].name)
+//                    json.put("price",dataList[p1].price)
+//                    var requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"),json.toString())
+//                    val call: Call<List<OrderModel>> = ApiClient.getClient.postQueue(requestBody)
+//                    call.enqueue(object : Callback<List<OrderModel>> {
+//
+//                        override fun onResponse(call: Call<List<OrderModel>>?, response: Response<List<OrderModel>>?) {
+//                            //progerssProgressDialog.dismiss()
+//                            Log.d("tagg",response.toString())
+//                        }
+//
+//                        override fun onFailure(call: Call<List<OrderModel>>?, t: Throwable?) {
+//                            //progerssProgressDialog.dismiss()
+//                            Log.d("tag","er")
+//                            Log.d("tag",t.toString())
+//                        }
+//                    })
+//
+//            } else {
+//                Toast.makeText(context,"Removed "+dataList[p1].name,Toast.LENGTH_SHORT).show()
+//            }
+//
+//        }
         return ViewHolder(rec)
     }
 
@@ -85,7 +92,10 @@ class FoodAdapter(private var dataList: List<DataModel>,val context: Context): a
         p0.itemView.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 Toast.makeText(context,"Added "+dataList[p1].name,Toast.LENGTH_SHORT).show()
-
+                count += food.price;
+                (context as MainActivity).updateTP(count)
+                val queue = Queue(name=food.name,image = food.image,price = food.price,id = food.id);
+                (context as MainActivity).insertQueue(queue)
 //                val json = JSONObject()
 //                json.put("name",dataList[p1].name)
 //                json.put("price",dataList[p1].price)
@@ -107,6 +117,8 @@ class FoodAdapter(private var dataList: List<DataModel>,val context: Context): a
 
             } else {
                 Toast.makeText(context,"Removed "+dataList[p1].name,Toast.LENGTH_SHORT).show()
+                count -= food.price;
+                (context as MainActivity).updateTP(count)
             }
 
         }

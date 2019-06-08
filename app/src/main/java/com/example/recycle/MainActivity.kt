@@ -2,15 +2,16 @@ package com.example.recycle
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.recycle.model.DataModel
 import com.example.recycle.model.OrderModel
+import com.example.recycle.model.Queue
 import com.example.recycle.retrofit.ApiClient
 import com.example.recycle.viewmodel.QueueView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -28,8 +29,8 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     lateinit var viewpager: androidx.viewpager.widget.ViewPager
     lateinit var pagerAdapter: pagerAdapter
     lateinit var button: Button
+    lateinit var order_button: Button
     lateinit var queueView: QueueView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -43,10 +44,19 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
             spinner2.adapter = adapter
         }
+        //val queueAdapter = QueueAdapter(this)
+//        queueView.allQueues.observe(this, Observer {
+//                queue -> queue?.let{queueAdapter.setQueue(queue)}
+//        })
         spinner2.onItemSelectedListener = this
         button = button2
         button.setOnClickListener{
             val intent = Intent(this, drag::class.java)
+            startActivity(intent)
+        }
+        order_button = order_btn
+        order_button.setOnClickListener{
+            val intent = Intent(this, Orders::class.java)
             startActivity(intent)
         }
         val call: Call<List<OrderModel>> = ApiClient.getClient.getOrders()
@@ -59,7 +69,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 list?.forEach {
                     i+= it.price
                 }
-                textView2.text = i.toString()+"ETB"
+                total_price.text = i.toString()+"ETB"
             }
 
             override fun onFailure(call: Call<List<OrderModel>>?, t: Throwable?) {
@@ -81,7 +91,14 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
 
+    fun updateTP(value: Int){
+        total_price.text = value.toString()
+    }
 
+    fun insertQueue(value: Queue){
+        Log.d("tag",value.toString())
+        queueView.insertQueue(value)
+    }
     override fun onNothingSelected(parent: AdapterView<*>) {
         Toast.makeText(this,"Added jq", Toast.LENGTH_SHORT).show()
     }
