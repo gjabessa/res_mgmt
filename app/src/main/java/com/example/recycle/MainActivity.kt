@@ -96,8 +96,11 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
     fun insertQueue(value: Queue){
-        Log.d("tag",value.toString())
+        Log.d("taog",value.toString())
         queueView.insertQueue(value)
+    }
+    fun deleteQueue(value:Queue){
+        queueView.deleteQueue(value)
     }
     override fun onNothingSelected(parent: AdapterView<*>) {
         Toast.makeText(this,"Added jq", Toast.LENGTH_SHORT).show()

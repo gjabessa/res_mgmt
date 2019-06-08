@@ -1,10 +1,7 @@
 package com.example.recycle.model
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface QueueDao{
@@ -14,4 +11,6 @@ interface QueueDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertQueue(queue: Queue): Long
 
+    @Delete
+    fun deleteQueue(queue: Queue)
 }

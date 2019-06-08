@@ -26,5 +26,9 @@ class QueueView(application: Application): AndroidViewModel(application){
     fun insertQueue(queue: Queue) = viewModelScope.launch(Dispatchers.IO) {
         queueRepository.insertQueue(queue)
     }
+
+    fun deleteQueue(queue: Queue) = viewModelScope.launch(Dispatchers.IO) {
+        queueRepository.deleteQueue(queue)
+    }
 //    val queue = DataModel(name="",description = "",image = "",image_large = "",price = 0,id = "");
 }

@@ -10,5 +10,6 @@ data class Queue(
     @PrimaryKey @ColumnInfo(name = "id") val id:String,
     @ColumnInfo(name="name") val name: String,
     @ColumnInfo(name="image") val image: String,
-    @ColumnInfo(name="price") val price: Int
+    @ColumnInfo(name="price") val price: Int,
+    @ColumnInfo(name="amount") var amount: Int
 ):Serializable

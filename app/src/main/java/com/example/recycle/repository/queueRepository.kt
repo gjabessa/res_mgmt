@@ -11,5 +11,8 @@ class QueueRepository(private val queueDao: QueueDao){
         queueDao.insertQueue(queue)
     }
 
+    fun deleteQueue(queue: Queue){
+        queueDao.deleteQueue(queue)
+    }
 
 }

@@ -94,7 +94,7 @@ class FoodAdapter(private var dataList: List<DataModel>,val context: Context): a
                 Toast.makeText(context,"Added "+dataList[p1].name,Toast.LENGTH_SHORT).show()
                 count += food.price;
                 (context as MainActivity).updateTP(count)
-                val queue = Queue(name=food.name,image = food.image,price = food.price,id = food.id);
+                val queue = Queue(name=food.name,image = food.image,price = food.price,id = food.id,amount = 1);
                 (context as MainActivity).insertQueue(queue)
 //                val json = JSONObject()
 //                json.put("name",dataList[p1].name)
@@ -119,6 +119,8 @@ class FoodAdapter(private var dataList: List<DataModel>,val context: Context): a
                 Toast.makeText(context,"Removed "+dataList[p1].name,Toast.LENGTH_SHORT).show()
                 count -= food.price;
                 (context as MainActivity).updateTP(count)
+                val queue = Queue(name=food.name,image = food.image,price = food.price,id = food.id,amount = 1);
+                (context as MainActivity).deleteQueue(queue)
             }
 
         }
