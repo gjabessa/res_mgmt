@@ -3,7 +3,7 @@
                                               android:layout_width="wrap_content"
                                               android:layout_height="wrap_content"
                                               android:orientation="vertical"
-                                              android:layout_margin="15dp"
+                                              android:layout_margin="10dp"
                                               xmlns:tools="http://schemas.android.com/tools">
     <ImageView
             android:id="@+id/menu_image"
