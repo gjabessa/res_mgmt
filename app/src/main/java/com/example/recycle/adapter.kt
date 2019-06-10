@@ -16,6 +16,7 @@ import com.example.recycle.model.DataModel
 import com.example.recycle.model.OrderModel
 import com.example.recycle.model.Queue
 import com.example.recycle.retrofit.ApiClient
+import com.example.recycle.retrofit.ApiClient.BASE_URL
 import com.example.recycle.viewmodel.QueueView
 import kotlinx.android.synthetic.main.activity_detail.view.*
 import kotlinx.android.synthetic.main.food.view.*
@@ -27,13 +28,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class FoodAdapter(private var dataList: List<DataModel>,val context: Context): androidx.recyclerview.widget.RecyclerView.Adapter<FoodAdapter.ViewHolder>(){
-    var foodList = listOf(
-        Food("Coffee",R.drawable.d),
-        Food("Coffee",R.drawable.d),
-        Food("Coffee",R.drawable.d),
-        Food("Coffee",R.drawable.d),
-        Food("Coffee",R.drawable.d)
-    )
+
     var count = 0;
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): FoodAdapter.ViewHolder {
         val inflater = LayoutInflater.from(p0.context)
@@ -76,7 +71,7 @@ class FoodAdapter(private var dataList: List<DataModel>,val context: Context): a
         p0.itemView.menu_name.text = food.name+" ETB "+food.price
         Glide
             .with(context)
-            .load(food.image)
+            .load(BASE_URL+food.image)
             .centerCrop()
             .into(p0.itemView.menu_image);
         //p0.itemView.menu_image.setImageResource(R.drawable.d)
@@ -85,7 +80,7 @@ class FoodAdapter(private var dataList: List<DataModel>,val context: Context): a
             val intent = Intent(context,detail::class.java)
             intent.putExtra("name",dataList[p1].name)
             intent.putExtra("description",dataList[p1].description)
-            intent.putExtra("image_large",dataList[p1].image_large)
+            intent.putExtra("image_large",BASE_URL+dataList[p1].image_large)
             intent.putExtra("price",dataList[p1].price)
             context.startActivity(intent)
         }
@@ -94,7 +89,7 @@ class FoodAdapter(private var dataList: List<DataModel>,val context: Context): a
                 Toast.makeText(context,"Added "+dataList[p1].name,Toast.LENGTH_SHORT).show()
                 count += food.price;
                 (context as MainActivity).updateTP(count)
-                val queue = Queue(name=food.name,image = food.image,price = food.price,id = food.id,amount = 1);
+                val queue = Queue(name=food.name,image = BASE_URL+food.image,price = food.price,id = food.id,amount = 1);
                 (context as MainActivity).insertQueue(queue)
 //                val json = JSONObject()
 //                json.put("name",dataList[p1].name)
@@ -119,7 +114,7 @@ class FoodAdapter(private var dataList: List<DataModel>,val context: Context): a
                 Toast.makeText(context,"Removed "+dataList[p1].name,Toast.LENGTH_SHORT).show()
                 count -= food.price;
                 (context as MainActivity).updateTP(count)
-                val queue = Queue(name=food.name,image = food.image,price = food.price,id = food.id,amount = 1);
+                val queue = Queue(name=food.name,image = BASE_URL+food.image,price = food.price,id = food.id,amount = 1);
                 (context as MainActivity).deleteQueue(queue)
             }
 
