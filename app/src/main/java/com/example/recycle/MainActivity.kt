@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     lateinit var button: Button
     lateinit var order_button: Button
     lateinit var queueView: QueueView
+    lateinit var mm: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -39,8 +40,13 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         queueView = ViewModelProviders.of(this).get(QueueView::class.java)
         //val model = ViewModelProviders.of(this).get(QueueView::class.java)
 
+        mm = m
+        mm.setOnClickListener {
+            val intent = Intent(this, MenuActivity::class.java)
+            startActivity(intent)
+        }
         var aa = ArrayAdapter.createFromResource(this, R.array.type_array,android.R.layout.simple_spinner_item).also{
-            adapter -> adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                adapter -> adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
             spinner2.adapter = adapter
         }

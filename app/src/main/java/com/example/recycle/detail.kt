@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.food.view.*
 
 class detail : AppCompatActivity() {
 
@@ -21,7 +20,7 @@ class detail : AppCompatActivity() {
                 .with(this)
                 .load(intent.getStringExtra("image_large"))
                 .centerCrop()
-                .into(imageView);
+                .into(m);
             }
     }
 }
